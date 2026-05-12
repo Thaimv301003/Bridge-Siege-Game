@@ -1,0 +1,12 @@
+# ninja log v5
+5	436	1778484964271192607	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	a4a6d2d5ceb73229
+437	576	1778484964383155219	/Users/thietmv/UnityProjects/BF - Bridge Siege/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5d595w40/obj/arm64-v8a/libswappywrapper.so	dbc25b646893c3b4
+2	1628	1778484965456254915	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	ef79c8bb126ae89d
+2	1631	1778484965461203002	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	d653d067af0e8b74
+1	1632	1778484965463478719	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	542a65b8c3641610
+3	1719	1778484965551403621	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	4b9b8a55ce6f68f7
+4	1756	1778484965586859914	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	317360f1664c8acf
+1	1757	1778484965589572325	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	7b5b3f80af981d49
+2	1910	1778484965742685835	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	a7a5a9d764ecb746
+0	2072	1778484965905267159	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	3c796ce006122865
+2072	2144	1778484965977854316	/Users/thietmv/UnityProjects/BF - Bridge Siege/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5d595w40/obj/arm64-v8a/libgame.so	215fef1858724c89

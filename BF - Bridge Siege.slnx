@@ -1,0 +1,13 @@
+﻿<Solution>
+  <Project Path="Assembly-CSharp-firstpass.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="BfunLitMotion.Animation.csproj" />
+  <Project Path="BfunLitMotion.Extensions.csproj" />
+  <Project Path="BfunLitMotion.Editor.csproj" />
+  <Project Path="BfunLitMotion.csproj" />
+  <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />
+  <Project Path="Sirenix.OdinInspector.Modules.Unity.Addressables.csproj" />
+  <Project Path="BfunLitMotion.Animation.Editor.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Sirenix.OdinInspector.Modules.UnityMathematics.csproj" />
+</Solution>

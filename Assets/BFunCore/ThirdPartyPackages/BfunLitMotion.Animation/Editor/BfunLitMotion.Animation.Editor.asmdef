@@ -1,0 +1,20 @@
+{
+    "name": "BfunLitMotion.Animation.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6efc94696102a459cad5124465081de4",
+        "GUID:aa9cad64d4fae43d2a90e595aea6cc7f",
+        "GUID:d95ce58620fb5497bbd98a33521ce1ba"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
