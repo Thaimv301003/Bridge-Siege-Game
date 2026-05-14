@@ -776,6 +776,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4686051165756597934, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: playerCharacter
+      value: 
+      objectReference: {fileID: 5840513054258658380, guid: 48edd4708d71cba4fa1c0c7efc0a0653, type: 3}
+    - target: {fileID: 4686051165756597934, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: normalObjectPooler
+      value: 
+      objectReference: {fileID: 1027487216}
+    - target: {fileID: 4686051165756597934, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: rewardedObjectPooler
+      value: 
+      objectReference: {fileID: 1027487216}
     - target: {fileID: 7355899893139943781, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -872,6 +884,10 @@ PrefabInstance:
       propertyPath: drawPadArea
       value: 
       objectReference: {fileID: 1409000841}
+    - target: {fileID: 7355899893139943834, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: isRewardedScene
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1137,6 +1153,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
+--- !u!1 &1027487216 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2743123598426784234, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
+  m_PrefabInstance: {fileID: 1027487215}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1119921422
 GameObject:
   m_ObjectHideFlags: 0

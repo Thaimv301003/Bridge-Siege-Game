@@ -161,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938016529187412503, guid: 0cb8a806d1f00b4428ddbdd31b69e889, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 6165672029446337450, guid: 0cb8a806d1f00b4428ddbdd31b69e889, type: 3}
       propertyPath: soundSettingData

@@ -24,5 +24,6 @@ public class GameState : MonoBehaviour
 
         // 3. Tắt Background trong GUIManager
         yield return GUIManager.Instance.CloseBackGround();
+        TheLegends.Base.Ads.AdsManager.Instance.ShowInterstitial(TheLegends.Base.Ads.AdsType.Interstitial, TheLegends.Base.Ads.PlacementOrder.One, "inter_level");
     }
 }

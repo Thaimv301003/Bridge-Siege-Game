@@ -4318,6 +4318,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
+--- !u!1 &1872140432 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2743123598426784234, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
+  m_PrefabInstance: {fileID: 1872140431}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1876783301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6407,6 +6412,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4686051165756597934, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: normalObjectPooler
+      value: 
+      objectReference: {fileID: 1872140432}
+    - target: {fileID: 4686051165756597934, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: rewardedObjectPooler
+      value: 
+      objectReference: {fileID: 1872140432}
     - target: {fileID: 7355899892431827668, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -6523,6 +6536,10 @@ PrefabInstance:
       propertyPath: drawPadArea
       value: 
       objectReference: {fileID: 1409000841}
+    - target: {fileID: 7355899893139943834, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: isRewardedScene
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9172615863784672886, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

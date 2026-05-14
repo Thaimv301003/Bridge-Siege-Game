@@ -176,12 +176,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 141437308189901097, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
       propertyPath: m_fontSize
-      value: 38
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 141437308189901097, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: c119d715c78940a47adb93586f55f81a, type: 2}
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 141437308189901097, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
       propertyPath: m_fontStyle
       value: 0
@@ -200,12 +200,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 141437308189901097, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
       propertyPath: m_fontSizeBase
-      value: 38
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 141437308189901097, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 827240159178294926, guid: c119d715c78940a47adb93586f55f81a, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 141437308189901097, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278190080
@@ -291,32 +291,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5556467832252329522, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
-      propertyPath: styleSheet
-      value: 
-      objectReference: {fileID: 11400000, guid: 2665218f202d3be40b963659d97a4c3d, type: 2}
-    - target: {fileID: 5556467832252329522, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
       propertyPath: localizationKey
       value: BUTTON
       objectReference: {fileID: 0}
     - target: {fileID: 7868890707468293090, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
       propertyPath: m_Name
       value: GUIText
-      objectReference: {fileID: 0}
-    - target: {fileID: 9111828590538605771, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
-      propertyPath: styleSheet
-      value: 
-      objectReference: {fileID: 11400000, guid: fe349f7974c24e741a3d90b52687a3cb, type: 2}
-    - target: {fileID: 9111828590538605771, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
-      propertyPath: initColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9111828590538605771, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
-      propertyPath: initColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9111828590538605771, guid: 22f6cec805e491b42812d7cf26e13b91, type: 3}
-      propertyPath: initColor.r
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

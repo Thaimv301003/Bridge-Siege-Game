@@ -91,14 +91,16 @@ namespace IndianOceanAssets.BridgeSiege
         int levelNo = PlayerPrefs.GetInt("level", 1);
         int totalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
         
-        // If the player's level number exceeds the available scenes in Build Settings
-        int sceneToLoad = levelNo;
+        // Level 1 starts at index 3
+        int sceneToLoad = levelNo + 2;
+
+        // If the calculated index exceeds the available scenes
         if (sceneToLoad >= totalScenes)
         {
-            // Fallback to a random level like GameManager.Next() does
-            // Make sure to pick a scene index that actually exists (e.g., between 3 and max index)
+            // Fallback to a random level index between 3 and the last scene
+            int minLevelIndex = 3;
             int maxLevelIndex = totalScenes - 1;
-            sceneToLoad = UnityEngine.Random.Range(3, maxLevelIndex + 1);
+            sceneToLoad = UnityEngine.Random.Range(minLevelIndex, maxLevelIndex + 1);
         }
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneToLoad);

@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/AdsSplash.unity
     guid: af8ea00170cc4429f824461dc66cf961
   - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
     path: Assets/Bridge Siege - Template/Scenes/_Main Menu.unity
     guid: affa578903354724680522879cd1199d
   - enabled: 1

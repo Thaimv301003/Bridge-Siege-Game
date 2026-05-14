@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using IndianOceanAssets.SlingMaster;
+using TheLegends.Base.Firebase;
+using TheLegends.Base.Ads;
+using TheLegends.Base.Ads;
 
 namespace IndianOceanAssets.BridgeSiege
 {
@@ -143,12 +146,16 @@ namespace IndianOceanAssets.BridgeSiege
         [Tooltip("Configure when ads are shown after level completion")]
         public AdsAfterLevel adsAfterLevel;
 
+        [Tooltip("The level from which interstitial ads will start showing (Remote Controlled)")]
+        public int startLevelShowInter = 1;
+
         public enum AdsAfterLevel
         {
             NO_ADS, // No ads after levels
             AFTER_EVERY_LEVEL, // Ads after each level
             AFTER_EVERY_TWO_LEVEL, // Ads after every two levels
             AFTER_EVERY_THREE_LEVELS // Ads after every three levels
+            
         }
 
         // Method to spawn bombs
@@ -181,7 +188,11 @@ namespace IndianOceanAssets.BridgeSiege
 
             if(isRewardedScene) // Check if the scene has rewards
             {
-                if(PlayerPrefs.GetInt(rewardKey, 0) == 1) // Reward player if eligible
+                // Auto-generate rewardKey if not assigned
+                if (string.IsNullOrEmpty(rewardKey))
+                    rewardKey = SceneManager.GetActiveScene().name + "Reward";
+
+                if(PlayerPrefs.GetInt(rewardKey, 0) == 1 && rewardSystem != null) // Reward player if eligible
                     rewardSystem.Rewarded();
                 else
                     RewardEnabled(); // Show reward screen if needed
@@ -228,11 +239,12 @@ namespace IndianOceanAssets.BridgeSiege
 
             Debug.Log("GameManager.Play() triggered. Loading level...");
 
-            // levelNo tracks the Build Index. If it's 1 (default), it points to Main Menu. We need it to point to Level 1 (index 2).
-            int sceneToLoad = (levelNo <= 1) ? 2 : levelNo;
+            // levelNo tracks the Level Number (1, 2, 3...). 
+            // Level 1 is at Build Index 3 (due to AdsSplash, Loading, and MainMenu before it).
+            int sceneToLoad = levelNo + 2;
             
-            // Since Scene 2 is Level 1, the max scene index is totalNoOfLevels + 1
-            int maxSceneIndex = totalNoOfLevels + 1;
+            // maxSceneIndex is totalNoOfLevels + 2 (Ads, Loading, Menu + Levels)
+            int maxSceneIndex = totalNoOfLevels + 2;
 
             if (sceneToLoad <= maxSceneIndex)
             {
@@ -240,8 +252,8 @@ namespace IndianOceanAssets.BridgeSiege
             }
             else
             {
-                // If player has surpassed the max levels, load a random level (from Scene 2 to maxSceneIndex)
-                int randLevel = Random.Range(2, maxSceneIndex + 1);
+                // If player has surpassed the max levels, load a random level (from Scene 3 to maxSceneIndex)
+                int randLevel = Random.Range(3, maxSceneIndex + 1);
                 SceneManager.LoadScene(randLevel);
             }
         }
@@ -249,19 +261,19 @@ namespace IndianOceanAssets.BridgeSiege
         // Enable reward screen UI
         public void RewardEnabled()
         {
-            drawPad.enabled = false;
-            drawPadArea.SetActive(false);
-            waveController.SetActive(false);
-            rewardScreen.SetActive(true);
+            if (drawPad != null) drawPad.enabled = false;
+            if (drawPadArea != null) drawPadArea.SetActive(false);
+            if (waveController != null) waveController.SetActive(false);
+            if (rewardScreen != null) rewardScreen.SetActive(true);
         }
 
         // Disable reward screen UI and resume game elements
         public void RewardDisabled()
         {
-            drawPad.enabled = true;
-            drawPadArea.SetActive(true);
-            waveController.SetActive(true);
-            rewardScreen.SetActive(false);
+            if (drawPad != null) drawPad.enabled = true;
+            if (drawPadArea != null) drawPadArea.SetActive(true);
+            if (waveController != null) waveController.SetActive(true);
+            if (rewardScreen != null) rewardScreen.SetActive(false);
         }
 
         // Show rewarded ad for skin reward
@@ -269,8 +281,9 @@ namespace IndianOceanAssets.BridgeSiege
         { 
             AudioManager.Instance.Play( "ButtonClick" );
 
-            //AdManager.Instance.isSkin = true; 
-            //AdManager.Instance.ShowRewardedVideo(); 
+            TheLegends.Base.Ads.AdsManager.Instance.ShowRewarded(TheLegends.Base.Ads.PlacementOrder.One, "reward_skin", () => {
+                rewardSystem.Rewarded();
+            });
         }
 
         // Handle mission failure, show retry UI, and disable other elements
@@ -328,12 +341,16 @@ namespace IndianOceanAssets.BridgeSiege
             levelNo++;
             PlayerPrefs.SetInt("level", levelNo);
 
-            if (levelNo < totalNoOfLevels + 1)
-                SceneManager.LoadScene(levelNo);
+            // Level 1 is index 3, so Level X is index X + 2
+            int sceneToLoad = levelNo + 2;
+            int maxSceneIndex = totalNoOfLevels + 2;
+
+            if (levelNo <= totalNoOfLevels)
+                SceneManager.LoadScene(sceneToLoad);
             else
             {
                 label:
-                int randLevel = Random.Range(3, totalNoOfLevels + 1);
+                int randLevel = Random.Range(3, maxSceneIndex + 1);
                 if (randLevel != SceneManager.GetActiveScene().buildIndex)
                     SceneManager.LoadScene(randLevel);
                 else
@@ -349,9 +366,22 @@ namespace IndianOceanAssets.BridgeSiege
             if (!callAdOnlyOnce || adsAfterLevel == AdsAfterLevel.NO_ADS)
                 return;
 
+            // Fetch the start level from Remote Config
+            startLevelShowInter = FirebaseManager.Instance.RemoteGetValueInt("startLevelInter", startLevelShowInter);
+
+            // Check if current level is eligible for ads
+            // Level 1 (Index 3) -> currentLevel = 1
+            int currentLevel = SceneManager.GetActiveScene().buildIndex - 2; 
+            if (currentLevel < startLevelShowInter)
+            {
+                Debug.Log($"Ads skipped: Current Level {currentLevel} < Start Level {startLevelShowInter}");
+                return;
+            }
+
             if (PlayerPrefs.GetInt("AD", 0) >= ((int)adsAfterLevel - 1))
             {
-                //AdManager.Instance.ShowInterstitial();
+               TheLegends.Base.Ads.AdsManager.Instance.ShowInterstitial(TheLegends.Base.Ads.AdsType.Interstitial, TheLegends.Base.Ads.PlacementOrder.One, "inter_level");
+
                 PlayerPrefs.SetInt("AD", 0);
             }
             else
@@ -367,15 +397,18 @@ namespace IndianOceanAssets.BridgeSiege
         { 
             if (AudioManager.Instance != null)
                 AudioManager.Instance.Play( "ButtonClick" );
-            //AdManager.Instance.isSkipLevel = true; 
-            //AdManager.Instance.ShowRewardedVideo();  
+            
+            TheLegends.Base.Ads.AdsManager.Instance.ShowRewarded(TheLegends.Base.Ads.PlacementOrder.One, "skip_level", () => {
+                Next();
+            });
         }
 
         // Play rewarded ad to double money earned
         public void DoubleMoney()
         {
-            //AdManager.Instance.isDoubleMoney = true; 
-            //AdManager.Instance.ShowRewardedVideo();
+            TheLegends.Base.Ads.AdsManager.Instance.ShowRewarded(TheLegends.Base.Ads.PlacementOrder.One, "double_money", () => {
+                AddCoins(coinEarnedThisLevel);
+            });
         }
 
         // Add coins to player's total and update UI

@@ -6401,6 +6401,10 @@ PrefabInstance:
       propertyPath: isRewardedScene
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8298818440998346117, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

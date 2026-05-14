@@ -28,28 +28,35 @@ namespace IndianOceanAssets.BridgeSiege
         public void Rewarded()
         {
             // Activate the pooler for rewarded objects
-            rewardedObjectPooler.SetActive(true);
+            if (rewardedObjectPooler != null)
+                rewardedObjectPooler.SetActive(true);
 
             // Set the DrawPad's spawn soldier to the player character (enhanced state)
-            DrawPad.instance.spawnSoldier = playerCharacter;
+            if (DrawPad.instance != null)
+                DrawPad.instance.spawnSoldier = playerCharacter;
 
             // Disable the reward screen via the GameManager
-            GameManager.instance.RewardDisabled();
+            if (GameManager.instance != null)
+                GameManager.instance.RewardDisabled();
 
             // Save reward claim status using a unique reward key
-            PlayerPrefs.SetInt(GameManager.instance.rewardKey, 1);
+            if (GameManager.instance != null)
+                PlayerPrefs.SetInt(GameManager.instance.rewardKey, 1);
         }
 
         // Called when the player does not claim a reward
         public void NotRewarded()
         {
-            AudioManager.Instance.Play( "ButtonClick" );
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.Play( "ButtonClick" );
 
             // Activate the normal object pooler for regular gameplay
-            normalObjectPooler.SetActive(true);
+            if (normalObjectPooler != null)
+                normalObjectPooler.SetActive(true);
 
             // Disable the reward screen via the GameManager
-            GameManager.instance.RewardDisabled();
+            if (GameManager.instance != null)
+                GameManager.instance.RewardDisabled();
         }
     }
 }

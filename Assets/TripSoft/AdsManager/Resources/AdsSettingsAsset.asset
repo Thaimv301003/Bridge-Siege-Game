@@ -22,7 +22,7 @@ MonoBehaviour:
   bannerPosition: 0
   fixBannerSmallSize: 0
   autoReLoadMax: 2
-  isTest: 0
+  isTest: 1
   preloadSettings:
     preloadBanner: 1
     preloadInterstitial: 1

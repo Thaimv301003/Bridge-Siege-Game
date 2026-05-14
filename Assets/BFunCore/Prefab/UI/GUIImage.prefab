@@ -88,6 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b745a38140bd6b43971a76fb2dddb56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  styleSheet: {fileID: 11400000, guid: fe349f7974c24e741a3d90b52687a3cb, type: 2}
+  styleSheet: {fileID: 11400000, guid: 714b7431fab9e124aa3f2294030a07ca, type: 2}
   colorType: 0
   initColor: {r: 0, g: 0, b: 0, a: 0}

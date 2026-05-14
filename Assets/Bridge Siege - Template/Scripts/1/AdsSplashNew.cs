@@ -184,7 +184,8 @@ namespace TheLegends.Base.Ads
                 {"nativeVideoCountdownTimerDuration", AdsManager.Instance.adsConfigs.nativeVideoCountdownTimerDuration},
                 {"nativeVideoDelayBeforeCountdown", AdsManager.Instance.adsConfigs.nativeVideoDelayBeforeCountdown},
                 {"nativeVideoCloseClickableDelay", AdsManager.Instance.adsConfigs.nativeVideoCloseClickableDelay},
-                {"nativeBannerTimeReload", AdsManager.Instance.adsConfigs.nativeBannerTimeReload}
+                {"nativeBannerTimeReload", AdsManager.Instance.adsConfigs.nativeBannerTimeReload},
+                {"startLevelInter", 1}
             };
 
             return config;
