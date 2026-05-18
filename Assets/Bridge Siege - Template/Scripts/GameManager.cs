@@ -84,6 +84,12 @@ namespace IndianOceanAssets.BridgeSiege
         [Tooltip("Text displaying coins earned in the current level")]
         [SerializeField] private TMPro.TMP_Text coinEarnedThisLevelText;
 
+        [Tooltip("Text hiển thị tổng số tiền người chơi đang có trên bảng Victory")]
+        public TMPro.TMP_Text totalMoneyVictoryText;
+
+        [Tooltip("Text hiển thị số tiền nhận được ở màn chơi hiện tại trên bảng Victory")]
+        public TMPro.TMP_Text baseCoinVictoryText;
+
         [Tooltip("Counter for coins earned in the current level")]
         private int coinEarnedThisLevel = 0;
 
@@ -193,9 +199,21 @@ namespace IndianOceanAssets.BridgeSiege
                     rewardKey = SceneManager.GetActiveScene().name + "Reward";
 
                 if(PlayerPrefs.GetInt(rewardKey, 0) == 1 && rewardSystem != null) // Reward player if eligible
+                {
                     rewardSystem.Rewarded();
+                }
                 else
-                    RewardEnabled(); // Show reward screen if needed
+                {
+                    // Ẩn bảng Reward đối với người mới chơi (TutorialDone = 0) ở màn đầu tiên
+                    if (PlayerPrefs.GetInt("TutorialDone", 0) == 0)
+                    {
+                        RewardDisabled();
+                    }
+                    else
+                    {
+                        RewardEnabled(); // Show reward screen if needed
+                    }
+                }
             }
 
             if (gamePlatform == GamePlatform.MOBILE) // Setting Reference Resolution for Mobile
@@ -261,6 +279,7 @@ namespace IndianOceanAssets.BridgeSiege
         // Enable reward screen UI
         public void RewardEnabled()
         {
+            Time.timeScale = 0f; // Đóng băng game khi bảng chọn lính/quà hiện lên
             if (drawPad != null) drawPad.enabled = false;
             if (drawPadArea != null) drawPadArea.SetActive(false);
             if (waveController != null) waveController.SetActive(false);
@@ -270,6 +289,7 @@ namespace IndianOceanAssets.BridgeSiege
         // Disable reward screen UI and resume game elements
         public void RewardDisabled()
         {
+            Time.timeScale = 1f; // Tiếp tục game khi đóng bảng chọn lính/quà
             if (drawPad != null) drawPad.enabled = true;
             if (drawPadArea != null) drawPadArea.SetActive(true);
             if (waveController != null) waveController.SetActive(true);
@@ -293,16 +313,17 @@ namespace IndianOceanAssets.BridgeSiege
                 AudioManager.Instance.Play( "WinAndFailScreenPop" );
 
             CheckToShowAds();
-            drawPad.enabled = false;
-            shopSystem.CloseShopWindow();
-            shopButton.SetActive(false);
-            pauseButton.SetActive(false);
-            drawPadArea.SetActive(false);
-            moneyUI.SetActive(false);
-            levelText.gameObject.SetActive(false);
-            retryLevel.SetActive(true);
-            retryLevelButton.SetActive(true);
-            touchSliderObj.SetActive(false);
+            if (drawPad != null) drawPad.enabled = false;
+            if (shopSystem != null) shopSystem.CloseShopWindow();
+            if (shopButton != null) shopButton.SetActive(false);
+            if (pauseButton != null) pauseButton.SetActive(false);
+            if (drawPadArea != null) drawPadArea.SetActive(false);
+            // Bỏ ẩn moneyUI để tiền luôn hiện khi thua
+            // if (moneyUI != null) moneyUI.SetActive(false);
+            if (levelText != null) levelText.gameObject.SetActive(false);
+            if (retryLevel != null) retryLevel.SetActive(true);
+            if (retryLevelButton != null) retryLevelButton.SetActive(true);
+            if (touchSliderObj != null) touchSliderObj.SetActive(false);
         }
 
         // Handle mission success, show next level UI, and disable other elements
@@ -314,22 +335,55 @@ namespace IndianOceanAssets.BridgeSiege
             if (AudioManager.Instance != null)
                 AudioManager.Instance.Play( "WinAndFailScreenPop" );
             
+            Time.timeScale = 0f; // Dừng thời gian game khi bảng Victory hiện lên
+
             CheckToShowAds();
-            drawPad.enabled = false;
-            shopSystem.CloseShopWindow();
-            shopButton.SetActive(false);
-            pauseButton.SetActive(false);
-            drawPadArea.SetActive(false);
-            moneyUI.SetActive(false);
-            levelText.gameObject.SetActive(false);
-            nextLevel.SetActive(true);
-            nextLevelButton.SetActive(true);
-            touchSliderObj.SetActive(false);
+            if (drawPad != null) drawPad.enabled = false;
+            if (shopSystem != null) shopSystem.CloseShopWindow();
+            if (shopButton != null) shopButton.SetActive(false);
+            if (pauseButton != null) pauseButton.SetActive(false);
+            if (drawPadArea != null) drawPadArea.SetActive(false);
+            // Bỏ ẩn moneyUI để tiền luôn hiện khi thắng
+            // if (moneyUI != null) moneyUI.SetActive(false);
+            if (levelText != null) levelText.gameObject.SetActive(false);
+            if (nextLevel != null) nextLevel.SetActive(true);
+            if (nextLevelButton != null) nextLevelButton.SetActive(true);
+            if (touchSliderObj != null) touchSliderObj.SetActive(false);
+
+            // Update the total money text on the Victory Panel if assigned
+            if (totalMoneyVictoryText != null)
+            {
+                totalMoneyVictoryText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
+            }
+
+            // Cập nhật số tiền kiếm được ở level vừa rồi lên bảng Victory
+            if (baseCoinVictoryText != null)
+            {
+                baseCoinVictoryText.gameObject.SetActive(true); // Đảm bảo text này luôn hiện lại khi bắt đầu bảng Victory
+                baseCoinVictoryText.text = coinEarnedThisLevel.ToString();
+            }
+
+            // Gửi dữ liệu tiền cho RewardMultiplier để nó tự động nhảy số
+            if (rewardMultiplier != null)
+            {
+                rewardMultiplier.baseCoins = coinEarnedThisLevel;
+                
+                // Nếu chưa có dynamicCoinText thì gán tạm bằng coinEarnedThisLevelText
+                if (rewardMultiplier.dynamicCoinText == null)
+                    rewardMultiplier.dynamicCoinText = coinEarnedThisLevelText;
+                    
+                // Cập nhật lần đầu tiên để hiện số tiền base thay vì nhảy luôn lên x5
+                if (rewardMultiplier.dynamicCoinText != null)
+                {
+                    rewardMultiplier.dynamicCoinText.text = coinEarnedThisLevel.ToString();
+                }
+            }
         }
 
         // Retry the current level
         public void Retry()
         {
+            Time.timeScale = 1f;
             if (AudioManager.Instance != null)
                 AudioManager.Instance.Play( "ButtonClick" );
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -338,6 +392,7 @@ namespace IndianOceanAssets.BridgeSiege
         // Load the next level or a random one if all levels completed
         public void Next()
         {
+            Time.timeScale = 1f;
             levelNo++;
             PlayerPrefs.SetInt("level", levelNo);
 
@@ -403,12 +458,95 @@ namespace IndianOceanAssets.BridgeSiege
             });
         }
 
-        // Play rewarded ad to double money earned
-        public void DoubleMoney()
+        [Header("Reward Multiplier System")]
+        [Tooltip("The UI panel for the multiplier reward")]
+        public GameObject multiplierPanel;
+
+        [Tooltip("Reference to the RewardMultiplier script")]
+        public RewardMultiplier rewardMultiplier;
+
+        [Tooltip("The green button that starts the ad")]
+        public GameObject adsButton;
+
+        [Tooltip("The button that stops the multiplier (initially hidden)")]
+        public GameObject stopButton;
+
+        // 1. Skip reward and move to next level
+        public void NoThanks()
         {
-            TheLegends.Base.Ads.AdsManager.Instance.ShowRewarded(TheLegends.Base.Ads.PlacementOrder.One, "double_money", () => {
-                AddCoins(coinEarnedThisLevel);
+            Time.timeScale = 1f;
+            if (multiplierPanel != null) multiplierPanel.SetActive(false);
+            Next();
+        }
+
+        // 2. Watch ad to start the multiplier movement
+        public void StartMultiplierAds()
+        {
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.Play("ButtonClick");
+
+#if UNITY_EDITOR
+            Debug.Log("Bypassing Ads in Unity Editor...");
+            if (rewardMultiplier != null)
+            {
+                rewardMultiplier.StartMoving(); // Triangle starts moving
+            }
+            
+            // Swap buttons
+            if (adsButton != null) adsButton.SetActive(false);
+            if (stopButton != null) stopButton.SetActive(true);
+
+            // Ẩn base coin đi khi bắt đầu quay
+            if (baseCoinVictoryText != null) baseCoinVictoryText.gameObject.SetActive(false);
+            return;
+#endif
+
+            TheLegends.Base.Ads.AdsManager.Instance.ShowRewarded(TheLegends.Base.Ads.PlacementOrder.One, "start_multiplier", () => {
+                if (rewardMultiplier != null)
+                {
+                    rewardMultiplier.StartMoving(); // Triangle starts moving
+                }
+                
+                // Swap buttons
+                if (adsButton != null) adsButton.SetActive(false);
+                if (stopButton != null) stopButton.SetActive(true);
+
+                // Ẩn base coin đi khi bắt đầu quay
+                if (baseCoinVictoryText != null) baseCoinVictoryText.gameObject.SetActive(false);
             });
+        }
+
+        // 3. Stop the movement and claim the final reward
+        public void StopAndClaim()
+        {
+            if (rewardMultiplier == null) return;
+
+            // Prevent spam clicking
+            if (stopButton != null) stopButton.SetActive(false);
+
+            // Stop the indicator and get multiplier
+            rewardMultiplier.StopMoving();
+            int multiplier = rewardMultiplier.GetMultiplier();
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.Play("ButtonClick");
+
+            // Calculate bonus
+            int bonusAmount = coinEarnedThisLevel * (multiplier - 1);
+            AddCoins(bonusAmount);
+
+            Debug.Log($"Final Reward Multiplier: x{multiplier}. Bonus: {bonusAmount}");
+
+            // Delay loading the next level so the player can see their multiplied money
+            StartCoroutine(WaitAndNext());
+        }
+
+        private System.Collections.IEnumerator WaitAndNext()
+        {
+            // Dùng WaitForSecondsRealtime vì Time.timeScale đang bằng 0
+            yield return new WaitForSecondsRealtime(1.5f);
+            Time.timeScale = 1f;
+            Next();
         }
 
         // Add coins to player's total and update UI
@@ -426,20 +564,43 @@ namespace IndianOceanAssets.BridgeSiege
         public void Pause()
         {
             Time.timeScale = 0f;
+            Debug.Log("Game Paused!");
+            
             if (AudioManager.Instance != null)
                 AudioManager.Instance.Play( "ButtonClick" );
-            pauseWindow.SetActive(true);
-            shopButton.SetActive(false);
+
+            if (pauseWindow != null) 
+            {
+                pauseWindow.SetActive(true);
+                Debug.Log("Pause Window Activated. Is it active in hierarchy? " + pauseWindow.activeInHierarchy);
+            }
+            else
+            {
+                Debug.LogError("Pause Window is NULL in GameManager! Please assign it in the Inspector.");
+            }
+
+            if (shopButton != null) shopButton.SetActive(false);
         }
 
         // Resume the game and hide the pause menu
         public void Resume()
         {
             Time.timeScale = 1f;
+            Debug.Log("Game Resumed!");
+
             if (AudioManager.Instance != null)
                 AudioManager.Instance.Play( "ButtonClick" );
-            pauseWindow.SetActive(false);
-            shopButton.SetActive(true);
+
+            if (pauseWindow != null) 
+            {
+                pauseWindow.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError("Pause Window is NULL in GameManager! Cannot close it.");
+            }
+
+            if (shopButton != null) shopButton.SetActive(true);
         }
 
         // Enable or disable the shop button interactability

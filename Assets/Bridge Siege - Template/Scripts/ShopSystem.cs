@@ -49,21 +49,21 @@ namespace IndianOceanAssets.BridgeSiege
         // Close the shop window and resume gameplay
         public void CloseShopWindow()
         {
-            AudioManager.Instance.Play( "ButtonClick" );
-            GameManager.instance.drawPadArea.SetActive(true); // Reactivate drawing area
-            GameManager.instance.pauseButton.SetActive(true); // Show pause button
+            if (AudioManager.Instance != null) AudioManager.Instance.Play( "ButtonClick" );
+            if (GameManager.instance != null && GameManager.instance.drawPadArea != null) GameManager.instance.drawPadArea.SetActive(true); // Reactivate drawing area
+            if (GameManager.instance != null && GameManager.instance.pauseButton != null) GameManager.instance.pauseButton.SetActive(true); // Show pause button
             Time.timeScale = 1f; // Resume game time
-            shopWindow.SetActive(false); // Hide shop window
+            if (shopWindow != null) shopWindow.SetActive(false); // Hide shop window
         }
 
         // Open the shop window and pause gameplay
         public void OpenShopWindow()
         {
-            AudioManager.Instance.Play( "ButtonClick" );
-            GameManager.instance.drawPadArea.SetActive(false); // Deactivate drawing area
-            GameManager.instance.pauseButton.SetActive(false); // Hide pause button
+            if (AudioManager.Instance != null) AudioManager.Instance.Play( "ButtonClick" );
+            if (GameManager.instance != null && GameManager.instance.drawPadArea != null) GameManager.instance.drawPadArea.SetActive(false); // Deactivate drawing area
+            if (GameManager.instance != null && GameManager.instance.pauseButton != null) GameManager.instance.pauseButton.SetActive(false); // Hide pause button
             Time.timeScale = 0f; // Pause game time
-            shopWindow.SetActive(true); // Show shop window
+            if (shopWindow != null) shopWindow.SetActive(true); // Show shop window
             
             UpdateShopUI(); // Automatically update button states when opening
         }
@@ -181,12 +181,31 @@ namespace IndianOceanAssets.BridgeSiege
             if (AudioManager.Instance != null)
                 AudioManager.Instance.Play("ButtonClick");
 
+#if UNITY_EDITOR
+            Debug.Log("Bypassing Ads in Unity Editor for Shop...");
+            ApplyItemEffect(index);
+            StartCoroutine(KeepTimePaused());
+            return;
+#endif
+
             // Show Rewarded Ad
-            AdsManager.Instance.ShowRewarded(PlacementOrder.One, "shop_free_item_" + index, () => {
+            TheLegends.Base.Ads.AdsManager.Instance.ShowRewarded(TheLegends.Base.Ads.PlacementOrder.One, "shop_free_item_" + index, () => {
                 // Success callback: Give item for free
                 ApplyItemEffect(index);
                 Debug.Log("Purchase Successful with Ads for Item Index: " + index);
+                
+                // Gọi Coroutine để chắc chắn game vẫn dừng sau khi Ads SDK khôi phục timeScale
+                StartCoroutine(KeepTimePaused());
             });
+        }
+
+        private System.Collections.IEnumerator KeepTimePaused()
+        {
+            yield return new WaitForSecondsRealtime(0.1f); // Đợi một chút để Ads SDK xử lý xong
+            if (shopWindow != null && shopWindow.activeInHierarchy)
+            {
+                Time.timeScale = 0f;
+            }
         }
 
     }

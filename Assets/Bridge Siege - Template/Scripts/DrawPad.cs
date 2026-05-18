@@ -124,7 +124,26 @@ namespace IndianOceanAssets.BridgeSiege
             // Start drawing when the left mouse button is pressed
             if (Input.GetMouseButtonDown(0))
             {
-                if(!gameManager.shopSystem.shopWindow.activeInHierarchy || !gameManager.pauseWindow.activeInHierarchy)
+                // Ensure gameManager is not null
+                if (gameManager == null) gameManager = GameManager.instance;
+                if (gameManager == null) return;
+
+                // Check if UI windows are active to block drawing (with safety null checks)
+                bool isShopOpen = gameManager.shopSystem != null && 
+                                 gameManager.shopSystem.shopWindow != null && 
+                                 gameManager.shopSystem.shopWindow.activeInHierarchy;
+                
+                bool isPauseOpen = gameManager.pauseWindow != null && 
+                                  gameManager.pauseWindow.activeInHierarchy;
+
+                // If any UI window is open, do not start drawing
+                if (isShopOpen || isPauseOpen)
+                {
+                    isDrawing = false;
+                    return;
+                }
+
+                if (touchSliderObj != null) 
                     touchSliderObj.SetActive(true); // Show touch slider UI
 
                 timeHoldingMouse = maxHoldTime; // Reset hold time
@@ -172,7 +191,7 @@ namespace IndianOceanAssets.BridgeSiege
                         }
 
                         // Deduct drawing distance as line progresses
-                        if(points > 0)
+                        if(points > 1)
                             distanceDrawnPerWave -= Vector2.Distance(floorLR.GetPosition(points - 1), floorLR.GetPosition(points - 2));
                     }
                     else

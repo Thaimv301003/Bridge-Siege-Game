@@ -495,7 +495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &646318944
 Transform:
   m_ObjectHideFlags: 0
@@ -776,6 +776,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1363230003030432232, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4686051165756597934, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
       propertyPath: playerCharacter
       value: 
@@ -788,6 +792,14 @@ PrefabInstance:
       propertyPath: rewardedObjectPooler
       value: 
       objectReference: {fileID: 1027487216}
+    - target: {fileID: 4799798823680222748, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586118165086524061, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7355899893139943781, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -881,9 +893,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2116711072}
     - target: {fileID: 7355899893139943834, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: shopSystem
+      value: 
+      objectReference: {fileID: 787270711}
+    - target: {fileID: 7355899893139943834, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
       propertyPath: drawPadArea
       value: 
       objectReference: {fileID: 1409000841}
+    - target: {fileID: 7355899893139943834, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+      propertyPath: waveController
+      value: 
+      objectReference: {fileID: 1119921422}
     - target: {fileID: 7355899893139943834, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
       propertyPath: isRewardedScene
       value: 1
@@ -893,6 +913,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+--- !u!114 &787270711 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1364362864036345258, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
+  m_PrefabInstance: {fileID: 787270710}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: debd9c5b663d9ca4fae800abb2222dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IndianOceanAssets.BridgeSiege.ShopSystem
 --- !u!1 &934962768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1129,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1119921423}
     m_Modifications:
     - target: {fileID: 2743123598426784234, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
       propertyPath: m_Name
@@ -1126,15 +1157,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2743123598426784236, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2743123598426784236, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2743123598426784236, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2743123598426784236, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1156,6 +1187,11 @@ PrefabInstance:
 --- !u!1 &1027487216 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2743123598426784234, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
+  m_PrefabInstance: {fileID: 1027487215}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1027487217 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2743123598426784236, guid: 4d798ae0119db2446b1f166f3608c185, type: 3}
   m_PrefabInstance: {fileID: 1027487215}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1119921422
@@ -1187,7 +1223,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1027487217}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1119921424
@@ -2063,7 +2100,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 6e7e9ca960027b94a9edf19090ff9646, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 094b5f3921b4e4ddab90d95f8e688542, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2650,7 +2687,6 @@ SceneRoots:
   - {fileID: 2116711073}
   - {fileID: 787270710}
   - {fileID: 1119921423}
-  - {fileID: 1027487215}
   - {fileID: 435585651}
   - {fileID: 934962770}
   - {fileID: 1248457943}

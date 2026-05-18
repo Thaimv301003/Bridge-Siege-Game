@@ -67,8 +67,6 @@ namespace IndianOceanAssets.BridgeSiege
 
             GameManager.instance.WaveCounterUI(currentWave, noOfWaves); // Update UI with initial wave count
 
-            GameManager.instance.SetShopInteractable(true); // Allow shop at the beginning
-
             StartCoroutine(Manager()); // Start wave management coroutine
         }
 
@@ -133,38 +131,79 @@ namespace IndianOceanAssets.BridgeSiege
         // Coroutine to manage waves and spawn conditions
         IEnumerator Manager()
         {
-            yield return new WaitForSeconds(timeBtwCheck); // Wait between checks
+            // Đảm bảo không đụng độ với các UI đang tạm dừng game (ví dụ: Bảng Reward chọn lính ở đầu game)
+            yield return new WaitUntil(() => Time.timeScale > 0f);
 
             // Check if there are waves left and all vehicles are destroyed
             if (noOfWaves > 0 && isAllVehiclesDestroyed == 0)
             {
-                GameManager.instance.SetShopInteractable(true); // Enable shop during transition
+                // Khóa khả năng vẽ lính (người chơi không thể vẽ trong 2 giây delay này)
+                if (GameManager.instance.drawPad != null) GameManager.instance.drawPad.enabled = false;
+                if (GameManager.instance.drawPadArea != null) GameManager.instance.drawPadArea.SetActive(false);
 
-                currentWave++; // Increment wave count
-
-                GameManager.instance.WaveCounterUI(currentWave, totalWaves); // Update UI with wave count
-
-                GameManager.instance.EnableIncomingWave(); // Show incoming wave indicator
-
-                // Trigger tutorial animation if it's the player's first game
-                if (PlayerPrefs.GetInt("TutorialDone", 0) == 0)
+                // Nếu không phải lúc mới vào game (tức là vừa bắn nổ xong 1 wave), đợi 2 giây để check
+                if (noOfWaves < totalWaves)
                 {
-                    if (drawPadAnimator != null)
-                    {
-                        drawPadAnimator.SetTrigger("DRAW");
-                    }
-                    else
-                    {
-                        Debug.LogWarning("drawPadAnimator is not assigned in WaveController. Please assign it in the Inspector.");
-                    }
+                    yield return new WaitForSeconds(2f);
                 }
 
-                yield return new WaitForSeconds(timeBeforeSpawn); // Additional delay before spawning
+                // Kiểm tra lại lần nữa sau 2 giây xem có đúng là sạch bóng quân thù chưa
+                if (isAllVehiclesDestroyed == 0)
+                {
+                    // Tự động bật Shop khi hết lính và chuẩn bị sang wave mới
+                    if (GameManager.instance.shopSystem != null)
+                    {
+                        // Ẩn Shop ở ván đầu tiên đối với người mới chơi (khi vừa bấm Play: noOfWaves == totalWaves)
+                        if (PlayerPrefs.GetInt("TutorialDone", 0) != 0 || noOfWaves < totalWaves)
+                        {
+                            GameManager.instance.shopSystem.OpenShopWindow();
+                        }
+                    }
 
-                GameManager.instance.SetShopInteractable(false); // Disable shop when wave starts
-                Spawn(); // Spawn the next wave of vehicles
+                    currentWave++; // Increment wave count
+
+                    GameManager.instance.WaveCounterUI(currentWave, totalWaves); // Update UI with wave count
+
+                    // Đợi người chơi đóng bảng Shop (game tiếp tục chạy) thì mới hiện chữ Incoming Wave
+                    yield return new WaitUntil(() => Time.timeScale > 0f);
+
+                    // Mở lại khả năng vẽ lính cho người chơi chuẩn bị đón wave mới
+                    if (GameManager.instance.drawPad != null) GameManager.instance.drawPad.enabled = true;
+                    if (GameManager.instance.drawPadArea != null) GameManager.instance.drawPadArea.SetActive(true);
+
+                    // Ẩn chữ "Incoming Wave" ở đợt đầu tiên đối với người mới chơi
+                    if (PlayerPrefs.GetInt("TutorialDone", 0) != 0 || noOfWaves < totalWaves)
+                    {
+                        GameManager.instance.EnableIncomingWave(); // Show incoming wave indicator
+                    }
+
+                    // Trigger tutorial animation if it's the player's first game
+                    if (PlayerPrefs.GetInt("TutorialDone", 0) == 0)
+                    {
+                        if (drawPadAnimator != null)
+                        {
+                            drawPadAnimator.SetTrigger("DRAW");
+                        }
+                        else
+                        {
+                            Debug.LogWarning("drawPadAnimator is not assigned in WaveController. Please assign it in the Inspector.");
+                        }
+                    }
+
+                    yield return new WaitForSeconds(timeBeforeSpawn); // Additional delay before spawning
+
+                    Spawn(); // Spawn the next wave of vehicles
+                }
+                else
+                {
+                    // Trả lại khả năng vẽ lính nếu check thất bại (có địch mới xuất hiện)
+                    if (GameManager.instance.drawPad != null) GameManager.instance.drawPad.enabled = true;
+                    if (GameManager.instance.drawPadArea != null) GameManager.instance.drawPadArea.SetActive(true);
+                }
             }
 
+            // Đợi một khoảng thời gian trước khi check vòng lặp tiếp theo
+            yield return new WaitForSeconds(timeBtwCheck); 
             StartCoroutine(Manager()); // Restart the coroutine for continuous checking
         }
 

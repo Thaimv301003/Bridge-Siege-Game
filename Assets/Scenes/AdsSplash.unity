@@ -1149,7 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94fd1925410145c9b79e5d6d5489cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TheLegends.Base.Ads.AdsSplashNew
-  isUseSelectBrand: 1
+  isUseSelectBrand: 0
   mrecOpenPos: 7
   mrecOpenOffset: {x: 0, y: -50}
   brandScreen: {fileID: 4212818358228269660}
