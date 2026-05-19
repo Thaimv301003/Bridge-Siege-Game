@@ -38,6 +38,8 @@ namespace IndianOceanAssets.BridgeSiege
 
         // ---------- Initialization ----------
 
+        public bool isOpen { get; private set; } = false;
+
         private void Start()
         {
             // Load the player's currency from PlayerPrefs
@@ -49,6 +51,7 @@ namespace IndianOceanAssets.BridgeSiege
         // Close the shop window and resume gameplay
         public void CloseShopWindow()
         {
+            isOpen = false;
             if (AudioManager.Instance != null) AudioManager.Instance.Play( "ButtonClick" );
             if (GameManager.instance != null && GameManager.instance.drawPadArea != null) GameManager.instance.drawPadArea.SetActive(true); // Reactivate drawing area
             if (GameManager.instance != null && GameManager.instance.pauseButton != null) GameManager.instance.pauseButton.SetActive(true); // Show pause button
@@ -59,9 +62,11 @@ namespace IndianOceanAssets.BridgeSiege
         // Open the shop window and pause gameplay
         public void OpenShopWindow()
         {
+            isOpen = true;
             if (AudioManager.Instance != null) AudioManager.Instance.Play( "ButtonClick" );
             if (GameManager.instance != null && GameManager.instance.drawPadArea != null) GameManager.instance.drawPadArea.SetActive(false); // Deactivate drawing area
-            if (GameManager.instance != null && GameManager.instance.pauseButton != null) GameManager.instance.pauseButton.SetActive(false); // Hide pause button
+            // Keep pause button visible when shop is open
+            // if (GameManager.instance != null && GameManager.instance.pauseButton != null) GameManager.instance.pauseButton.SetActive(false); // Hide pause button
             Time.timeScale = 0f; // Pause game time
             if (shopWindow != null) shopWindow.SetActive(true); // Show shop window
             
@@ -130,14 +135,23 @@ namespace IndianOceanAssets.BridgeSiege
             }
 
             // Update UI buttons
-            if (index < buyButton.Length && buyButton[index] != null)
-                buyButton[index].SetActive(false); // Hide the buy button
-            
-            if (index < notEnoughMoneyButton.Length && notEnoughMoneyButton[index] != null)
-                notEnoughMoneyButton[index].SetActive(false); // Hide the not enough money button
-            
-            if (index < equippedButton.Length && equippedButton[index] != null)
-                equippedButton[index].SetActive(true); // Show the equipped indicator
+            if (index == 1)
+            {
+                // For bombs (consumable), do not show equipped button. Keep buy button available.
+                if (index < equippedButton.Length && equippedButton[index] != null)
+                    equippedButton[index].SetActive(false);
+            }
+            else
+            {
+                if (index < buyButton.Length && buyButton[index] != null)
+                    buyButton[index].SetActive(false); // Hide the buy button
+                
+                if (index < notEnoughMoneyButton.Length && notEnoughMoneyButton[index] != null)
+                    notEnoughMoneyButton[index].SetActive(false); // Hide the not enough money button
+                
+                if (index < equippedButton.Length && equippedButton[index] != null)
+                    equippedButton[index].SetActive(true); // Show the equipped indicator
+            }
 
             if (AudioManager.Instance != null)
                 AudioManager.Instance.Play("ButtonClick");

@@ -173,7 +173,7 @@ namespace IndianOceanAssets.BridgeSiege
         // Updates wave count on UI
         public void WaveCounterUI(int currentWave, int totalWave)
         {
-            waveUI.text = "Wave " + currentWave + " / " + totalWave;
+            waveUI.text = currentWave + " / " + totalWave;
         }
 
         // Called when the script instance is loaded
@@ -190,7 +190,7 @@ namespace IndianOceanAssets.BridgeSiege
         {
             levelNo = PlayerPrefs.GetInt("level", 1); // Load saved level number
             if (levelText)
-                levelText.text = "Level " + SceneManager.GetActiveScene().buildIndex; // Update level text
+                levelText.text = "Level " + (SceneManager.GetActiveScene().buildIndex - 2); // Update level text
 
             if(isRewardedScene) // Check if the scene has rewards
             {
@@ -316,11 +316,13 @@ namespace IndianOceanAssets.BridgeSiege
             if (drawPad != null) drawPad.enabled = false;
             if (shopSystem != null) shopSystem.CloseShopWindow();
             if (shopButton != null) shopButton.SetActive(false);
-            if (pauseButton != null) pauseButton.SetActive(false);
+            // Keep pause button visible when mission fails
+            // if (pauseButton != null) pauseButton.SetActive(false);
             if (drawPadArea != null) drawPadArea.SetActive(false);
             // Bỏ ẩn moneyUI để tiền luôn hiện khi thua
             // if (moneyUI != null) moneyUI.SetActive(false);
-            if (levelText != null) levelText.gameObject.SetActive(false);
+            // Keep level text visible when mission fails
+            // if (levelText != null) levelText.gameObject.SetActive(false);
             if (retryLevel != null) retryLevel.SetActive(true);
             if (retryLevelButton != null) retryLevelButton.SetActive(true);
             if (touchSliderObj != null) touchSliderObj.SetActive(false);
@@ -341,11 +343,13 @@ namespace IndianOceanAssets.BridgeSiege
             if (drawPad != null) drawPad.enabled = false;
             if (shopSystem != null) shopSystem.CloseShopWindow();
             if (shopButton != null) shopButton.SetActive(false);
-            if (pauseButton != null) pauseButton.SetActive(false);
+            // Keep pause button visible when mission is accomplished
+            // if (pauseButton != null) pauseButton.SetActive(false);
             if (drawPadArea != null) drawPadArea.SetActive(false);
             // Bỏ ẩn moneyUI để tiền luôn hiện khi thắng
             // if (moneyUI != null) moneyUI.SetActive(false);
-            if (levelText != null) levelText.gameObject.SetActive(false);
+            // Keep level text visible when mission is accomplished
+            // if (levelText != null) levelText.gameObject.SetActive(false);
             if (nextLevel != null) nextLevel.SetActive(true);
             if (nextLevelButton != null) nextLevelButton.SetActive(true);
             if (touchSliderObj != null) touchSliderObj.SetActive(false);

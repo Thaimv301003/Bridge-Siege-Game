@@ -164,8 +164,11 @@ namespace IndianOceanAssets.BridgeSiege
 
                     GameManager.instance.WaveCounterUI(currentWave, totalWaves); // Update UI with wave count
 
-                    // Đợi người chơi đóng bảng Shop (game tiếp tục chạy) thì mới hiện chữ Incoming Wave
-                    yield return new WaitUntil(() => Time.timeScale > 0f);
+                    // Đợi người chơi đóng bảng Shop (shopSystem.isOpen == false) thì mới hiện chữ Incoming Wave và chạy tiếp luồng game
+                    yield return new WaitUntil(() => 
+                        GameManager.instance.shopSystem == null || 
+                        !GameManager.instance.shopSystem.isOpen
+                    );
 
                     // Mở lại khả năng vẽ lính cho người chơi chuẩn bị đón wave mới
                     if (GameManager.instance.drawPad != null) GameManager.instance.drawPad.enabled = true;

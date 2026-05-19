@@ -2366,7 +2366,7 @@ PrefabInstance:
       objectReference: {fileID: 1409000841}
     - target: {fileID: 7355899893139943834, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
       propertyPath: gamePlatform
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7355899893139943834, guid: 74b5dc0b0cb1f5940abdbb145902f1fb, type: 3}
       propertyPath: rewardSystem
