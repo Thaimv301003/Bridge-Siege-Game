@@ -19,14 +19,14 @@ namespace TheLegends.Base.Ads
 
         private readonly WaitForSeconds _loadDelay = new WaitForSeconds(0.5f);
 
-        [Space(10)]
-        [SerializeField, ShowField(nameof(isUseSelectBrand))]
+        // [Space(10)]
+        // [SerializeField, ShowField(nameof(isUseSelectBrand))]
         private AdsPos mrecOpenPos = AdsPos.CenterLeft;
-        [SerializeField, ShowField(nameof(isUseSelectBrand))]
+        // [SerializeField, ShowField(nameof(isUseSelectBrand))]
         private Vector2Int mrecOpenOffset = Vector2Int.zero;
 
-        [Space(10)]
-        [SerializeField, ShowField(nameof(isUseSelectBrand))]
+        // [Space(10)]
+        // [SerializeField, ShowField(nameof(isUseSelectBrand))]
         private BrandScreenController brandScreen;
 
 

@@ -823,7 +823,7 @@ PrefabInstance:
     - target: {fileID: 462369871738470588, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
       propertyPath: 'backgroundSprites.Array.data[0]'
       value: 
-      objectReference: {fileID: 21300000, guid: 13b8583019e5f47d0b1653d8b92b044a, type: 3}
+      objectReference: {fileID: 21300000, guid: 420bc13b4be6e42259941522cd5bb726, type: 3}
     - target: {fileID: 2535336138405925314, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
       propertyPath: m_Name
       value: UILoading
@@ -850,7 +850,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 1b389bf6853b64453af9d09e4d826a71, type: 3}
     - target: {fileID: 4660754780771550603, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 147
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 6385703954336586441, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
       propertyPath: m_Pivot.x
@@ -946,6 +946,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6385703954336586441, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
   m_PrefabInstance: {fileID: 6916842507488769471}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6916842507488769473 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 462369871738470588, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
+  m_PrefabInstance: {fileID: 6916842507488769471}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e40d3b7e7308a1141ab91e4cad5345fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7024669318148630178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,12 +1173,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8330679892449814551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c94fd1925410145c9b79e5d6d5489cd9, type: 3}
+  m_Script: {fileID: 11500000, guid: 393dc3b02b2cf3a4988427849145d3fd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TheLegends.Base.Ads.AdsSplashNew
+  m_EditorClassIdentifier: com.thelegends.ads.manager::TheLegends.Base.Ads.AdsSplashController
   isUseSelectBrand: 0
-  mrecOpenPos: 7
-  mrecOpenOffset: {x: 0, y: -50}
+  mrecOpenPos: 5
+  mrecOpenOffset: {x: 0, y: 0}
   brandScreen: {fileID: 4212818358228269660}
   sceneName: Loading
   OnInitFirebaseDone:
@@ -1178,7 +1189,19 @@ MonoBehaviour:
       m_Calls: []
   OnCompleteSplash:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6916842507488769473}
+        m_TargetAssemblyTypeName: TheLegends.Base.UI.UILoadingController, com.thelegends.unity.ui
+        m_MethodName: Hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9069287637691370631
 GameObject:
   m_ObjectHideFlags: 0
