@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: com.thelegends.appsflyer.manager::TheLegends.Base.AppsFlyer.AppsFlyerSettings
   devKey: Qhno4yJY6KHmZp9uS9DRe4
   appID: 
-  getConversionData: 0
-  isDebug: 0
+  getConversionData: 1
+  isDebug: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildIcon: {fileID: 0}
   apkName: BF - Bridge Siege
-  PackageName: com.IndianOceanAssets.BridgeSiege
+  PackageName: com.r1.bridge.siege.game.shooting
   Orientation: 4
   minimumAPILevel: 25
   maximumAPILevel: 34
@@ -23,6 +23,9 @@ MonoBehaviour:
   colorSpace: 0
   SceneSearchTerm: 
   allScenes:
+  - SceneName: AdsSplash
+    Path: Assets/Scenes/AdsSplash.unity
+    InBuild: 1
   - SceneName: Loading
     Path: Assets/Scenes/Loading.unity
     InBuild: 1
@@ -59,8 +62,14 @@ MonoBehaviour:
   - SceneName: Level 10
     Path: Assets/Bridge Siege - Template/Scenes/Level 10.unity
     InBuild: 1
+  - SceneName: 0 (1)
+    Path: Assets/_Recovery/0 (1).unity
+    InBuild: 0
   - SceneName: 0
     Path: Assets/_Recovery/0.unity
+    InBuild: 0
+  - SceneName: ScreenShotCharacter
+    Path: Assets/ScreenShotCharacter.unity
     InBuild: 0
   LoadingScene: Assets/Scenes/Loading.unity
   HomeScene: Assets/Bridge Siege - Template/Scenes/_Main Menu.unity

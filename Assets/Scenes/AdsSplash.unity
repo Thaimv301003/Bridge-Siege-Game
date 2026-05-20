@@ -828,13 +828,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: UILoading
       objectReference: {fileID: 0}
+    - target: {fileID: 2835755232889684705, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: d3c54f797de3bac4cb5594abca419c48, type: 3}
     - target: {fileID: 3694930526382230872, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 13b8583019e5f47d0b1653d8b92b044a, type: 3}
+      objectReference: {fileID: 21300000, guid: 420bc13b4be6e42259941522cd5bb726, type: 3}
+    - target: {fileID: 3884397088165816939, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd82777a7d474444d88d730c31ebbd8d, type: 3}
     - target: {fileID: 3884397088165816939, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
       propertyPath: m_FillAmount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491740570629421211, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1b389bf6853b64453af9d09e4d826a71, type: 3}
+    - target: {fileID: 4660754780771550603, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 147
       objectReference: {fileID: 0}
     - target: {fileID: 6385703954336586441, guid: 3087846a2da90504fae9444cc8e15288, type: 3}
       propertyPath: m_Pivot.x
