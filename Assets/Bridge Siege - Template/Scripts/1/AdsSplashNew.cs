@@ -19,14 +19,14 @@ namespace TheLegends.Base.Ads
 
         private readonly WaitForSeconds _loadDelay = new WaitForSeconds(0.5f);
 
-        // [Space(10)]
-        // [SerializeField, ShowField(nameof(isUseSelectBrand))]
+        [Space(10)]
+        [SerializeField, ShowField(nameof(isUseSelectBrand))]
         private AdsPos mrecOpenPos = AdsPos.CenterLeft;
-        // [SerializeField, ShowField(nameof(isUseSelectBrand))]
+        [SerializeField, ShowField(nameof(isUseSelectBrand))]
         private Vector2Int mrecOpenOffset = Vector2Int.zero;
 
-        // [Space(10)]
-        // [SerializeField, ShowField(nameof(isUseSelectBrand))]
+        [Space(10)]
+        [SerializeField, ShowField(nameof(isUseSelectBrand))]
         private BrandScreenController brandScreen;
 
 
@@ -502,3 +502,23 @@ namespace TheLegends.Base.Ads
 
     }
 }
+
+#if UNITY_EDITOR
+namespace TheLegends.Base.Ads
+{
+    using UnityEditor;
+    using UnityEngine.UIElements;
+    using UnityEditor.UIElements;
+
+    [CustomEditor(typeof(AdsSplashNew))]
+    public class AdsSplashNewEditor : Editor
+    {
+        public override VisualElement CreateInspectorGUI()
+        {
+            var root = new VisualElement();
+            InspectorElement.FillDefaultInspector(root, serializedObject, this);
+            return root;
+        }
+    }
+}
+#endif
