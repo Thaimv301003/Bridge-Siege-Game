@@ -23,6 +23,8 @@ ServerData/
 Thumbs.db
 # Secrets
 *.json
+!Packages/manifest.json
+!Packages/packages-lock.json
 GoogleDriveAPICredentials.json
 GoogleDriveSettings.asset
 UI Setting.asset

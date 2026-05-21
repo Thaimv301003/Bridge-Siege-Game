@@ -10997,6 +10997,7 @@ MonoBehaviour:
   totalMoneyVictoryText: {fileID: 0}
   baseCoinVictoryText: {fileID: 8253011636682440352}
   rewardScreen: {fileID: 6266712778001737818}
+  fireworksObject: {fileID: 0}
   levelText: {fileID: 2109915173861141905}
   coinText: {fileID: 8962137924260954256}
   touchSlider: {fileID: 1122367618226293948}

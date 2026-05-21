@@ -96,6 +96,10 @@ namespace IndianOceanAssets.BridgeSiege
         [Tooltip("Reward screen UI shown after level completion")]
         [SerializeField] private GameObject rewardScreen;
 
+        [Tooltip("Object pháo hoa xuất hiện khi chiến thắng màn chơi")]
+        [SerializeField] private GameObject fireworksObject;
+
+
         [Space(10)]
         [Header("Level and Currency Display")]
         [Tooltip("UI text for displaying the current level")]
@@ -220,6 +224,9 @@ namespace IndianOceanAssets.BridgeSiege
                 GetComponent<CanvasScaler>().referenceResolution = new Vector2(1080, 1920);
             else // Setting Reference Resolution for PC
                 GetComponent<CanvasScaler>().referenceResolution = new Vector2(1920, 1080);
+
+            if (fireworksObject != null)
+                fireworksObject.SetActive(false);
 
             AddCoins(0); // Initialize coin display
         }
@@ -353,6 +360,12 @@ namespace IndianOceanAssets.BridgeSiege
             if (nextLevel != null) nextLevel.SetActive(true);
             if (nextLevelButton != null) nextLevelButton.SetActive(true);
             if (touchSliderObj != null) touchSliderObj.SetActive(false);
+
+            // Hiện pháo hoa chúc mừng chiến thắng
+            if (fireworksObject != null)
+            {
+                fireworksObject.SetActive(true);
+            }
 
             // Update the total money text on the Victory Panel if assigned
             if (totalMoneyVictoryText != null)
